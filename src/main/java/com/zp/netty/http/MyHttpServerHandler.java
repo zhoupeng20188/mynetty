@@ -7,6 +7,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
+import java.net.URI;
+
 /**
  * @Author zp
  * @create 2020/9/2 10:52
@@ -20,6 +22,13 @@ public class MyHttpServerHandler extends SimpleChannelInboundHandler<HttpObject>
 
             // 回复信息给浏览器，http协议
             ByteBuf byteBuf = Unpooled.copiedBuffer("hello,我是server", CharsetUtil.UTF_8);
+
+            HttpRequest httpRequest = (HttpRequest) httpObject;
+            URI uri = new URI(httpRequest.uri());
+            if("/favicon.ico".equals(uri.getPath())){
+                System.out.println("/favicon.ico不作响应");
+                return;
+            }
 
             // 构建一 个httpResponse
             DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, byteBuf);
