@@ -13,7 +13,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class NettyServer {
     public static void main(String[] args) throws InterruptedException {
+        // 默认个数为cpu核心数*2
         EventLoopGroup bossGroup = new NioEventLoopGroup();
+        // 默认个数为cpu核心数*2
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
