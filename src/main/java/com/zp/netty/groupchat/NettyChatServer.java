@@ -10,6 +10,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author zp
@@ -35,6 +38,9 @@ public class NettyChatServer {
                         socketChannel.pipeline().addLast("decoder", new StringDecoder());
                         socketChannel.pipeline().addLast("encoder", new StringEncoder());
                         socketChannel.pipeline().addLast(new NettyChatServerHandler());
+                        // 加入心跳检测,会在下一个handler中处理
+                        socketChannel.pipeline().addLast(new IdleStateHandler(3,5,7, TimeUnit.SECONDS));
+                        socketChannel.pipeline().addLast(new HeartBeatHandler());
                     }
                 });
 
