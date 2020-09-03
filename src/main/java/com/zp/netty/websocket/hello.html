@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello,WebSocket</title>
+</head>
+<body>
+<script>
+    var socket;
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://localhost:9008/hello");
+        socket.onmessage = function (ev) {
+            var rt = document.getElementById('response');
+            rt.value = rt.value + '\n' + ev.data;
+        }
+
+        socket.onopen = function (ev) {
+            var rt = document.getElementById('response');
+            rt.value = '连接开启了。。';
+        }
+
+        socket.onclose = function (ev) {
+            var rt = document.getElementById('response');
+            rt.value = rt.value + '\n' + '连接关闭了。。';
+        }
+    } else {
+        alert("当前浏览器不支持websocket")
+    }
+
+    function send(message) {
+        if (!window.socket) { // 判断socket是否创建好
+            return;
+        }
+        if (socket.readyState == WebSocket.OPEN) {
+            // 发送消息
+            socket.send(message);
+        } else {
+            alert("连接未开启");
+        }
+    }
+</script>
+<form onsubmit="return false">
+    <textarea name="message" style="height: 300px;width:300px"></textarea>
+    <input type="button" onclick="send(this.form.message.value)" value="发送"></input>
+    <textarea id="response" style="height: 300px;width:300px"></textarea>
+    <input type="button" onclick="document.getElementById('response').value = ''" value="清空"></input>
+</form>
+</body>
+</html>
