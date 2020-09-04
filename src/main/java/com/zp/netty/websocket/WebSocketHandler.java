@@ -15,8 +15,8 @@ public class WebSocketHandler  extends SimpleChannelInboundHandler<TextWebSocket
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame textWebSocketFrame) throws Exception {
         System.out.println("服务器收到消息：" + textWebSocketFrame.text());
         // 回复消息
-        channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame("服务器时间"+ LocalDateTime.now())
-        + textWebSocketFrame.text());
+        channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame("服务器时间 "+ LocalDateTime.now()
+        + ":" + textWebSocketFrame.text()));
         System.out.println("服务器回发消息成功");
     }
 
