@@ -16,7 +16,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Long> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Long aLong) throws Exception {
-
+        System.out.println("从服务端接收数据："+aLong);
     }
 
     @Override

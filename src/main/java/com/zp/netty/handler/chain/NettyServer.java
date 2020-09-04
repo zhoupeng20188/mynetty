@@ -30,7 +30,10 @@ public class NettyServer {
                     // 给pipeline设置处理器
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        // 添加自定义解码器
                         socketChannel.pipeline().addLast(new MyByteToLongHandler());
+                        // 添加自定义编码器
+                        socketChannel.pipeline().addLast(new MyLongToByteHandler());
                         socketChannel.pipeline().addLast(new NettyServerHandler());
                     }
                 });
