@@ -9,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 
 /**
  * @Author zp
@@ -31,6 +32,8 @@ public class NettyServer {
                     // 给pipeline设置处理器
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        //配置Protobuf解码工具ProtobufVarint32FrameDecoder与ProtobufDecoder
+                        socketChannel.pipeline().addLast(new ProtobufVarint32FrameDecoder());
                         // 指定为哪种类型解码
                         socketChannel.pipeline().addLast(new ProtobufDecoder(StudentPOJO.Student.getDefaultInstance()));
                         socketChannel.pipeline().addLast(new NettyServerHandler());

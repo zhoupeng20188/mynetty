@@ -7,6 +7,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
+import java.io.File;
+
 /**
  * @Author zp
  * @create 2020/9/1 18:24
@@ -19,13 +21,17 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        byte[] bytes = new byte[1000];
-        for (int i = 0; i < 1000; i++) {
-            bytes[i] = 55;
-        }
-        StudentPOJO.Student.Builder student = StudentPOJO.Student.newBuilder().setId(1)
+//        byte[] bytes = new byte[1000];
+//        for (int i = 0; i < 1000; i++) {
+//            bytes[i] = 55;
+//        }
+        byte[] bytes = FileUtil.convertFileToByteArray(new File("1.txt"));
+        System.out.println(bytes.length);
+        ByteString byteString = ByteString.copyFrom(bytes);
+        System.out.println(byteString.size());
+        StudentPOJO.Student student = StudentPOJO.Student.newBuilder().setId(1)
                 .setName("test1")
-                .setContent(ByteString.copyFrom(bytes));
+                .setContent(byteString).build();
         ctx.writeAndFlush(student);
     }
 
