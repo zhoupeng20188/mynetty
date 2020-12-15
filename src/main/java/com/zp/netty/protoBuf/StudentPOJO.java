@@ -45,6 +45,12 @@ public final class StudentPOJO {
      */
     com.google.protobuf.ByteString
         getNameBytes();
+
+    /**
+     * <code>bytes content = 3;</code>
+     * @return The content.
+     */
+    com.google.protobuf.ByteString getContent();
   }
   /**
    * <pre>
@@ -64,6 +70,7 @@ public final class StudentPOJO {
     }
     private Student() {
       name_ = "";
+      content_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @Override
@@ -105,6 +112,11 @@ public final class StudentPOJO {
               String s = input.readStringRequireUtf8();
 
               name_ = s;
+              break;
+            }
+            case 26: {
+
+              content_ = input.readBytes();
               break;
             }
             default: {
@@ -200,6 +212,17 @@ public final class StudentPOJO {
       }
     }
 
+    public static final int CONTENT_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString content_;
+    /**
+     * <code>bytes content = 3;</code>
+     * @return The content.
+     */
+    @Override
+    public com.google.protobuf.ByteString getContent() {
+      return content_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @Override
     public final boolean isInitialized() {
@@ -220,6 +243,9 @@ public final class StudentPOJO {
       if (!getNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
       }
+      if (!content_.isEmpty()) {
+        output.writeBytes(3, content_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -235,6 +261,10 @@ public final class StudentPOJO {
       }
       if (!getNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (!content_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, content_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -255,6 +285,8 @@ public final class StudentPOJO {
           != other.getId()) return false;
       if (!getName()
           .equals(other.getName())) return false;
+      if (!getContent()
+          .equals(other.getContent())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -270,6 +302,8 @@ public final class StudentPOJO {
       hash = (53 * hash) + getId();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+      hash = (53 * hash) + getContent().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -411,6 +445,8 @@ public final class StudentPOJO {
 
         name_ = "";
 
+        content_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -439,6 +475,7 @@ public final class StudentPOJO {
         Student result = new Student(this);
         result.id_ = id_;
         result.name_ = name_;
+        result.content_ = content_;
         onBuilt();
         return result;
       }
@@ -493,6 +530,9 @@ public final class StudentPOJO {
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
+        }
+        if (other.getContent() != com.google.protobuf.ByteString.EMPTY) {
+          setContent(other.getContent());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -661,6 +701,40 @@ public final class StudentPOJO {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.ByteString content_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes content = 3;</code>
+       * @return The content.
+       */
+      @Override
+      public com.google.protobuf.ByteString getContent() {
+        return content_;
+      }
+      /**
+       * <code>bytes content = 3;</code>
+       * @param value The content to set.
+       * @return This builder for chaining.
+       */
+      public Builder setContent(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        content_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes content = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearContent() {
+        
+        content_ = getDefaultInstance().getContent();
+        onChanged();
+        return this;
+      }
       @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -728,8 +802,9 @@ public final class StudentPOJO {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\rStudent.proto\"#\n\007Student\022\n\n\002id\030\001 \001(\005\022\014" +
-      "\n\004name\030\002 \001(\tB\rB\013StudentPOJOb\006proto3"
+      "\n\rStudent.proto\"4\n\007Student\022\n\n\002id\030\001 \001(\005\022\014" +
+      "\n\004name\030\002 \001(\t\022\017\n\007content\030\003 \001(\014B\rB\013Student" +
+      "POJOb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -740,7 +815,7 @@ public final class StudentPOJO {
     internal_static_Student_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Student_descriptor,
-        new String[] { "Id", "Name", });
+        new String[] { "Id", "Name", "Content", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,5 +1,6 @@
 package com.zp.netty.protoBuf;
 
+import com.google.protobuf.ByteString;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,8 +19,13 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        byte[] bytes = new byte[1000];
+        for (int i = 0; i < 1000; i++) {
+            bytes[i] = 55;
+        }
         StudentPOJO.Student.Builder student = StudentPOJO.Student.newBuilder().setId(1)
-                .setName("test1");
+                .setName("test1")
+                .setContent(ByteString.copyFrom(bytes));
         ctx.writeAndFlush(student);
     }
 

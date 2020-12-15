@@ -4,4 +4,5 @@ option java_outer_classname = "StudentPOJO";//生成的外部类名，同时也�
 message Student { // 会在StudentPOJO 外部类中生成一个Student内部类
     int32 id =1; // int32对应java中的int型，1表示属性序号，不是值
     string name =2; // string的s为小写
+    bytes content = 3;
 }
